@@ -3,6 +3,7 @@
 An executive Power BI dashboard that shows **why employees leave** and **what it costs the company**.
 
 **Tools:** Power BI · DAX · Power Query · Excel
+
 **Dataset:** IBM HR Analytics Employee Attrition dataset (1,470 employees)
 
 ![HR overview page](images/hr-page-1-overview.png)
@@ -41,11 +42,6 @@ Which employees are most likely to leave, which factors drive it, and how much d
 -- Attrition Rate = DIVIDE(CALCULATE(COUNTROWS(HR), HR[Attrition] = "Yes"), COUNTROWS(HR))
 ```
 
-## Files
-- `HR_Attrition_Dashboard.pbix`: the Power BI file *(add it to this folder)*
-- `data/`: the source dataset *(add it to this folder)*
-- `images/`: dashboard screenshots
 
 ## Links
-- Live report: *(add your Power BI public link)*
-- LinkedIn post: *(add your post link)*
+- LinkedIn post: *([add your post link](https://www.linkedin.com/posts/mahmoud-hamdy-473732417_powerbi-dataanalytics-hranalytics-ugcPost-7507941508042498049-d8Tp/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGoBRxcBUAFXeC8DTpHtxT4cV6FtUzC_2AI))*
