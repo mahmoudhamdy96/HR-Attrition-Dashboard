@@ -37,9 +37,41 @@ Which employees are most likely to leave, which factors drive it, and how much d
 4. Designed a dark-themed UI with page navigation.
 
 ## Key DAX measures
+
+`Age Group` is a calculated column. The rest are measures. `Attrition Num` is a helper column that equals 1 when the employee left and 0 otherwise.
+
+> **Assumption:** the estimated cost of losing an employee is taken as **50% of their annual salary** (replacement and onboarding cost). The $6.8M figure depends on this assumption.
+
 ```dax
--- Paste your real measures here, for example:
--- Attrition Rate = DIVIDE(CALCULATE(COUNTROWS(HR), HR[Attrition] = "Yes"), COUNTROWS(HR))
+-- Calculated column: age brackets
+Age Group =
+SWITCH(
+    TRUE(),
+    'IBM HR Dashboard'[Age] < 25, "< 25",
+    'IBM HR Dashboard'[Age] >= 25 && 'IBM HR Dashboard'[Age] <= 34, "25-34",
+    'IBM HR Dashboard'[Age] >= 35 && 'IBM HR Dashboard'[Age] <= 44, "35-44",
+    'IBM HR Dashboard'[Age] >= 45 && 'IBM HR Dashboard'[Age] <= 54, "45-54",
+    "55+"
+)
+
+-- Base counts
+Total Employees = COUNTROWS('IBM HR Dashboard')
+Total Attrition = SUM('IBM HR Dashboard'[Attrition Num])
+
+Attrition Rate = DIVIDE([Total Attrition], [Total Employees], 0)
+
+-- Annual salary of employees who left
+Attrition Annual Salary =
+CALCULATE(
+    SUM('IBM HR Dashboard'[MonthlyIncome]) * 12,
+    'IBM HR Dashboard'[Attrition] = "Yes"
+)
+
+-- Assumed replacement cost = 50% of annual salary
+Estimated Attrition Cost = [Attrition Annual Salary] * 0.5
+
+-- Cost per employee who left
+Attrition Cost per Employee = DIVIDE([Estimated Attrition Cost], [Total Attrition], 0)
 ```
 
 
